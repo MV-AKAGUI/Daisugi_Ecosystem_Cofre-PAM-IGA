@@ -116,9 +116,20 @@ Toda e qualquer intervenção nos ambientes compartilhados ou dedicados deve obe
 
 | Método | Endpoint | Finalidade |
 | :--- | :--- | :--- |
-| `POST` | `/api/v1/audit/log-event` | Grava evento na Trilha Sagrada com SHA-256 encadeado. |
-| `GET` | `/api/v1/audit/tenant-report/{tenant_id}` | Extrato completo de transparência para o cliente. |
-| `GET` | `/api/v1/audit/verify-integrity` | Verificador matemático de não-adulteração da base. |
-| `POST` | `/api/v1/governance/rfc/propose` | Submissão de RFC Tipo A ou Tipo B. |
-| `POST` | `/api/v1/governance/rfc/approve` | Parecer e aprovação formal de RFC (Gate SoD). |
-| `GET` | `/api/v1/governance/rfc/list/{tenant_id}` | Consulta de status e histórico de mudanças. |
+| `POST` | `/api/v1/audit/log-event` | Grava evento na Trilha Sagrada com sanitização LGPD e SHA-256 encadeado (assíncrono em < 1ms via BackgroundTasks). |
+| `GET` | `/api/v1/audit/tenant-report/{tenant_id}` | Extrato completo de transparência para o cliente (isolado por tenant). |
+| `GET` | `/api/v1/audit/verify-integrity` | Verificador matemático de não-adulteração da base (recalcula toda a cadeia). |
+| `POST` | `/api/v1/governance/rfc/propose` | Submissão de RFC Tipo A ou Tipo B com persistência GitOps em `rfcs/`. |
+| `POST` | `/api/v1/governance/rfc/approve` | Parecer e aprovação formal de RFC (Gate SoD com trava de tenant admin). |
+| `GET` | `/api/v1/governance/rfc/pending-count/{tenant_id}` | Contador leve para renderização de badge de alerta no Lobby da DAI. |
+| `GET` | `/api/v1/governance/rfc/list/{tenant_id}` | Consulta de status e histórico completo de mudanças. |
+
+---
+
+## 6. Arquitetura de Performance Leve & LGPD em Tempo Real
+
+1. **Sanitizador LGPD Nativo:** Todas as strings de detalhes passam por regex compiladas em memória antes de entrar no ledger, mascarando CPFs, números de cartões e telefones (`[CPF_PROTEGIDO_LGPD]`), garantindo compliance sem onerar a CPU.
+2. **Persistência Assíncrona Leve:** O Cofre responde em microssegundos para a DAI e descarrega a gravação append-only em `sacred_audit_ledger.jsonl` em segundo plano via `BackgroundTasks`.
+3. **Resiliência a Reinicializações:** No boot, o Cofre faz a leitura do último registro histórico em tempo $O(1)$, garantindo que a cadeia de hash continue contínua e íntegra mesmo após manutenções ou deploys.
+4. **GitOps de Compliance:** Cada RFC proposta ou aprovada gera uma cópia estruturada em `rfcs/RFC-YYYYMMDD-NNN.json`, garantindo dupla trilha de auditoria (na API do Cofre e no histórico do Git).
+

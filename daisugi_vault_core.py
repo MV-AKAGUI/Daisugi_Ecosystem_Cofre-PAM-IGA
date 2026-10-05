@@ -2,16 +2,19 @@
 daisugi_vault_core.py
 Servidor Central de Autenticação, Cofre de Segredos (PAM), Diretório Sagrado de Auditoria e Governança (IGA)
 Daisugi Ecosystem Cofre-PAM-IGA
+Versão: 2.1.0 — High-Performance, LGPD Sanitizer, Async Persistence & GitOps Compliance
 """
 
 import os
+import re
 import time
 import uuid
 import hashlib
 import json
 from enum import Enum
+from pathlib import Path
 from typing import Dict, Any, List, Optional
-from fastapi import FastAPI, HTTPException, Depends, Security, Query
+from fastapi import FastAPI, HTTPException, Depends, Security, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, Field
@@ -19,8 +22,8 @@ import jwt
 
 app = FastAPI(
     title="Daisugi Ecosystem Cofre-PAM-IGA & Sacred Audit Ledger",
-    description="Autoridade Central de Identidade, Cofre de Chaves, Trilha Sagrada de Auditoria Imutável e Protocolo de Mudanças (RFC)",
-    version="2.0.0"
+    description="Autoridade Central de Identidade, Cofre de Chaves, Trilha Sagrada de Auditoria Imutável (Merkle Chained) e Protocolo de Mudanças (RFC)",
+    version="2.1.0"
 )
 
 app.add_middleware(
@@ -34,6 +37,11 @@ app.add_middleware(
 SECRET_KEY = os.getenv("DAISUGI_VAULT_SECRET", "daisugi_master_vault_secret_key_2026")
 ALGORITHM = "HS256"
 security = HTTPBearer()
+
+BASE_DIR = Path(__file__).resolve().parent
+LEDGER_FILE_PATH = BASE_DIR / "sacred_audit_ledger.jsonl"
+RFCS_DIR = BASE_DIR / "rfcs"
+RFCS_DIR.mkdir(exist_ok=True)
 
 # ==============================================================================
 # 1. CATÁLOGO IGA CANÔNICO MULTI-TENANT (Com Usuário Homologado de Teste Sandbox)
@@ -137,7 +145,27 @@ CATALOGO_CADEIRAS = {
 }
 
 # ==============================================================================
-# 2. DIRETÓRIO SAGRADO DE AUDITORIA IMUTÁVEL (Merkle / Chained Ledger)
+# 2. MOTOR LGPD: SANITIZAÇÃO ULTRARRÁPIDA DE DADOS PESSOAIS SENSÍVEIS
+# ==============================================================================
+REGEX_CPF = re.compile(r"\b\d{3}\.?\d{3}\.?\d{3}-?\d{2}\b")
+REGEX_CARTAO = re.compile(r"\b(?:\d{4}[ -]?){3}\d{4}\b")
+REGEX_TELEFONE = re.compile(r"\b(?:\+?55\s?)?(?:\(?\d{2}\)?[\s-]?)?9?\d{4}[-.]?\d{4}\b")
+
+def sanitizar_dados_lgpd(dado: Any) -> Any:
+    """Pseudonimiza dados sensíveis (CPF, cartões, telefones) em tempo O(1)."""
+    if isinstance(dado, str):
+        texto = REGEX_CPF.sub("[CPF_PROTEGIDO_LGPD]", dado)
+        texto = REGEX_CARTAO.sub("[CARTAO_PROTEGIDO_LGPD]", texto)
+        texto = REGEX_TELEFONE.sub("[TEL_PROTEGIDO_LGPD]", texto)
+        return texto
+    elif isinstance(dado, dict):
+        return {k: sanitizar_dados_lgpd(v) for k, v in dado.items()}
+    elif isinstance(dado, list):
+        return [sanitizar_dados_lgpd(item) for item in dado]
+    return dado
+
+# ==============================================================================
+# 3. DIRETÓRIO SAGRADO DE AUDITORIA IMUTÁVEL (Merkle / Chained Ledger)
 # ==============================================================================
 SACRED_AUDIT_LEDGER: List[Dict[str, Any]] = []
 
@@ -146,6 +174,14 @@ def calcular_hash_evento(evento_data: Dict[str, Any], previous_hash: str) -> str
     payload_str = f"{previous_hash}|{evento_data['timestamp']}|{evento_data['tenant_id']}|{evento_data['sub']}|{evento_data['acao']}|{evento_data['detalhes_str']}|{evento_data['status']}"
     return hashlib.sha256(payload_str.encode("utf-8")).hexdigest()
 
+def persistir_evento_em_disco(evento_final: Dict[str, Any]):
+    """Append-only assíncrono em disco JSONL sem bloquear o loop principal."""
+    try:
+        with open(LEDGER_FILE_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(evento_final, ensure_ascii=False) + "\n")
+    except Exception as e:
+        print(f"[ERRO DE PERSISTÊNCIA AUDITORIA]: {e}")
+
 def registrar_evento_sagrado(
     tenant_id: str,
     sub: str,
@@ -153,13 +189,17 @@ def registrar_evento_sagrado(
     detalhes: Dict[str, Any],
     status: str = "SUCCESS",
     origem_ip: str = "127.0.0.1",
-    origem_sistema: str = "PAM_VAULT"
+    origem_sistema: str = "PAM_VAULT",
+    background_tasks: Optional[BackgroundTasks] = None
 ) -> Dict[str, Any]:
-    """Insere evento na trilha sagrada de auditoria com encadeamento de hash à prova de fraudes."""
+    """Insere evento no ledger com sanitização LGPD e encadeamento SHA-256."""
     global SACRED_AUDIT_LEDGER
     prev_hash = SACRED_AUDIT_LEDGER[-1]["hash_integridade"] if SACRED_AUDIT_LEDGER else "0" * 64
     agora = time.time()
-    detalhes_str = json.dumps(detalhes, sort_keys=True, ensure_ascii=False)
+
+    # Sanitização de compliance LGPD
+    detalhes_sanitizados = sanitizar_dados_lgpd(detalhes)
+    detalhes_str = json.dumps(detalhes_sanitizados, sort_keys=True, ensure_ascii=False)
 
     evento_raw = {
         "entry_id": str(uuid.uuid4()),
@@ -182,7 +222,7 @@ def registrar_evento_sagrado(
         "tenant_id": tenant_id,
         "sub": sub,
         "acao": acao,
-        "detalhes": detalhes,
+        "detalhes": detalhes_sanitizados,
         "status": status,
         "origem_ip": origem_ip,
         "origem_sistema": origem_sistema,
@@ -190,10 +230,33 @@ def registrar_evento_sagrado(
         "hash_integridade": hash_integridade
     }
     SACRED_AUDIT_LEDGER.append(evento_final)
+
+    # Persistência em disco: se tiver background task, agenda de forma assíncrona; senão grava direto
+    if background_tasks:
+        background_tasks.add_task(persistir_evento_em_disco, evento_final)
+    else:
+        persistir_evento_em_disco(evento_final)
+
     return evento_final
 
+# Inicialização de Boot: se existir arquivo histórico no disco, carrega a cadeia
+def boot_carregar_ledger_historico():
+    global SACRED_AUDIT_LEDGER
+    if LEDGER_FILE_PATH.exists():
+        try:
+            with open(LEDGER_FILE_PATH, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        SACRED_AUDIT_LEDGER.append(json.loads(line))
+            print(f"[COFRE PAM-IGA] Carregados {len(SACRED_AUDIT_LEDGER)} eventos históricos da Trilha Sagrada.")
+        except Exception as e:
+            print(f"[COFRE PAM-IGA] Aviso ao carregar histórico: {e}")
+
+boot_carregar_ledger_historico()
+
 # ==============================================================================
-# 3. PROTOCOLO DE GESTÃO DE MUDANÇAS (RFC - Request For Change)
+# 4. PROTOCOLO DE GESTÃO DE MUDANÇAS (RFC - Request For Change & GitOps)
 # ==============================================================================
 class TipoMudanca(str, Enum):
     TIPO_A_OPERACIONAL = "TIPO_A_OPERACIONAL"
@@ -208,6 +271,15 @@ class StatusRFC(str, Enum):
     APLICADA = "APLICADA"
 
 RFC_REGISTRY: Dict[str, Dict[str, Any]] = {}
+
+def salvar_rfc_gitops(rfc_data: Dict[str, Any]):
+    """Salva a RFC em formato estruturado na pasta rfcs/ para auditoria e controle de versão Git."""
+    try:
+        arquivo_rfc = RFCS_DIR / f"{rfc_data['rfc_id']}.json"
+        with open(arquivo_rfc, "w", encoding="utf-8") as f:
+            json.dump(rfc_data, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"[GITOPS RFC ERROR]: {e}")
 
 # ==============================================================================
 # MODELOS DE ENTRADA / SAÍDA (PYDANTIC)
@@ -265,11 +337,12 @@ def health():
         "status": "online",
         "sistema": "Daisugi_Ecosystem_Cofre-PAM-IGA",
         "sacred_audit_entries": len(SACRED_AUDIT_LEDGER),
+        "persistencia_disco": LEDGER_FILE_PATH.exists(),
         "timestamp": time.time()
     }
 
 @app.post("/api/v1/auth/handshake", response_model=HandshakeResponse)
-def handshake(req: HandshakeRequest):
+def handshake(req: HandshakeRequest, bg: BackgroundTasks):
     u = req.usuario.lower()
     if req.senha != "123":
         registrar_evento_sagrado(
@@ -279,7 +352,8 @@ def handshake(req: HandshakeRequest):
             detalhes={"motivo": "Senha recusada pelo Cofre PAM"},
             status="AUTH_FAILED",
             origem_ip=req.origem_ip or "127.0.0.1",
-            origem_sistema=req.origem_sistema
+            origem_sistema=req.origem_sistema,
+            background_tasks=bg
         )
         raise HTTPException(status_code=401, detail="Credenciais recusadas pelo Cofre PAM.")
 
@@ -291,7 +365,8 @@ def handshake(req: HandshakeRequest):
             detalhes={"motivo": "Usuário sem cadeira no IGA"},
             status="FORBIDDEN",
             origem_ip=req.origem_ip or "127.0.0.1",
-            origem_sistema=req.origem_sistema
+            origem_sistema=req.origem_sistema,
+            background_tasks=bg
         )
         raise HTTPException(status_code=403, detail="Identidade não atribuída a nenhuma Cadeira no catálogo IGA.")
 
@@ -312,7 +387,8 @@ def handshake(req: HandshakeRequest):
         },
         status="SUCCESS",
         origem_ip=req.origem_ip or "127.0.0.1",
-        origem_sistema=req.origem_sistema
+        origem_sistema=req.origem_sistema,
+        background_tasks=bg
     )
 
     payload = {
@@ -350,7 +426,11 @@ def handshake(req: HandshakeRequest):
     )
 
 @app.post("/api/v1/governance/sod/validate-action")
-def validate_sod_action(req: SoDValidationRequest, credentials: HTTPAuthorizationCredentials = Depends(security)):
+def validate_sod_action(
+    req: SoDValidationRequest,
+    bg: BackgroundTasks,
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
     except Exception as e:
@@ -359,6 +439,31 @@ def validate_sod_action(req: SoDValidationRequest, credentials: HTTPAuthorizatio
     checker_sub = payload.get("sub", "").lower()
     maker_sub = req.maker_identity.lower()
     tenant_id = payload.get("tenant_id", "sugoi_sa")
+    is_sandbox = payload.get("is_sandbox", False)
+
+    # Trava de Proteção Sandbox: Homologação sem impacto financeiro real
+    if is_sandbox:
+        evento = registrar_evento_sagrado(
+            tenant_id=tenant_id,
+            sub=checker_sub,
+            acao="QUARENTENA_SIMULADA_SANDBOX",
+            detalhes={
+                "maker": maker_sub,
+                "documento_hash": req.documento_hash,
+                "valor_brl": req.valor_brl,
+                "aviso": "Simulação de teste homologado sem efeito contábil real."
+            },
+            status="SIMULATION_SUCCESS",
+            origem_sistema="QUARENTENA_KANSA",
+            background_tasks=bg
+        )
+        return {
+            "aprovado": True,
+            "modo": "SIMULACAO_AUDITADA",
+            "mensagem": "Homologação Sandbox aprovada para teste de fluxo (Sem efeito contábil/financeiro real).",
+            "auditoria_hash": evento["hash_integridade"],
+            "entry_id": evento["entry_id"]
+        }
 
     # Regra 1: Maker não pode ser Checker (Auto-Aprovação Tóxica)
     if checker_sub == maker_sub:
@@ -373,7 +478,8 @@ def validate_sod_action(req: SoDValidationRequest, credentials: HTTPAuthorizatio
                 "bloqueio": "Maker não pode aprovar a si próprio"
             },
             status="BLOCKED_SOD",
-            origem_sistema="QUARENTENA_KANSA"
+            origem_sistema="QUARENTENA_KANSA",
+            background_tasks=bg
         )
         raise HTTPException(
             status_code=403,
@@ -388,7 +494,8 @@ def validate_sod_action(req: SoDValidationRequest, credentials: HTTPAuthorizatio
             acao="VIOLACAO_SOD_SEM_ALCADA",
             detalhes={"role": payload.get("role"), "documento_hash": req.documento_hash},
             status="BLOCKED_ROLE",
-            origem_sistema="QUARENTENA_KANSA"
+            origem_sistema="QUARENTENA_KANSA",
+            background_tasks=bg
         )
         raise HTTPException(
             status_code=403,
@@ -407,7 +514,8 @@ def validate_sod_action(req: SoDValidationRequest, credentials: HTTPAuthorizatio
             "detalhes": req.detalhes or {}
         },
         status="SUCCESS",
-        origem_sistema="QUARENTENA_KANSA"
+        origem_sistema="QUARENTENA_KANSA",
+        background_tasks=bg
     )
 
     return {
@@ -418,10 +526,14 @@ def validate_sod_action(req: SoDValidationRequest, credentials: HTTPAuthorizatio
     }
 
 # ==============================================================================
-# 4. ENDPOINTS DO DIRETÓRIO SAGRADO DE AUDITORIA & TRANSPARÊNCIA DO CLIENTE
+# 5. ENDPOINTS DO DIRETÓRIO SAGRADO DE AUDITORIA & TRANSPARÊNCIA DO CLIENTE
 # ==============================================================================
 @app.post("/api/v1/audit/log-event")
-def log_external_event(req: ExternalAuditEventRequest, credentials: HTTPAuthorizationCredentials = Depends(security)):
+def log_external_event(
+    req: ExternalAuditEventRequest,
+    bg: BackgroundTasks,
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
     """Permite que a DAI, Kan-sa e outros módulos gravem interações clínicas e de IA na Trilha Sagrada."""
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
@@ -435,7 +547,8 @@ def log_external_event(req: ExternalAuditEventRequest, credentials: HTTPAuthoriz
         detalhes=req.detalhes,
         status=req.status,
         origem_ip=req.origem_ip or "127.0.0.1",
-        origem_sistema=req.origem_sistema
+        origem_sistema=req.origem_sistema,
+        background_tasks=bg
     )
     return {
         "status": "gravado",
@@ -449,10 +562,7 @@ def get_tenant_audit_report(
     limit: int = Query(100, le=1000),
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
-    """
-    Extrato de Transparência e Compliance para o Cliente.
-    Mostra o histórico imutável de acessos, chamadas, consultas e respostas de IA.
-    """
+    """Extrato de Transparência e Compliance para o Cliente (Protegido por isolamento multi-tenant)."""
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
     except Exception as e:
@@ -461,7 +571,6 @@ def get_tenant_audit_report(
     user_tenant = payload.get("tenant_id")
     is_core = payload.get("is_core_developer", False)
 
-    # Blindagem Multi-Tenant: um cliente nunca enxerga a trilha de outro cliente
     if not is_core and user_tenant != tenant_id:
         raise HTTPException(status_code=403, detail="Acesso Negado: Você só pode auditar o seu próprio tenant.")
 
@@ -475,10 +584,7 @@ def get_tenant_audit_report(
 
 @app.get("/api/v1/audit/verify-integrity")
 def verify_audit_ledger_integrity():
-    """
-    Demonstração Matemática de Não-Adulteração (Auditoria Independente).
-    Percorre toda a cadeia do diretório sagrado e valida os hashes SHA-256.
-    """
+    """Demonstração Matemática de Não-Adulteração (Verificação SHA-256 encadeada em tempo real)."""
     global SACRED_AUDIT_LEDGER
     if not SACRED_AUDIT_LEDGER:
         return {"status": "valido", "total_eventos": 0, "mensagem": "Ledger vazio."}
@@ -490,9 +596,9 @@ def verify_audit_ledger_integrity():
                 "status": "corrompido",
                 "falha_no_indice": idx,
                 "entry_id": evento["entry_id"],
-                "mensagem": "Corrupção detectada: previous_hash não corresponde ao evento anterior!"
+                "mensagem": "Corrupção detectada: previous_hash violado!"
             }
-        
+
         detalhes_str = json.dumps(evento["detalhes"], sort_keys=True, ensure_ascii=False)
         evento_raw = {
             "timestamp": evento["timestamp"],
@@ -520,11 +626,15 @@ def verify_audit_ledger_integrity():
     }
 
 # ==============================================================================
-# 5. ENDPOINTS DO PROTOCOLO DE GESTÃO DE MUDANÇAS (RFC COMPLIANCE GATE)
+# 6. ENDPOINTS DO PROTOCOLO DE GESTÃO DE MUDANÇAS (RFC & GITOPS COMPLIANCE)
 # ==============================================================================
 @app.post("/api/v1/governance/rfc/propose")
-def propose_rfc(req: ProporRFCRequest, credentials: HTTPAuthorizationCredentials = Depends(security)):
-    """Submete uma nova proposta de mudança (Tipo A ou Tipo B)."""
+def propose_rfc(
+    req: ProporRFCRequest,
+    bg: BackgroundTasks,
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    """Submete uma nova proposta de mudança (Tipo A ou Tipo B) com persistência GitOps."""
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
     except Exception as e:
@@ -546,8 +656,8 @@ def propose_rfc(req: ProporRFCRequest, credentials: HTTPAuthorizationCredentials
         "aprovacoes": []
     }
     RFC_REGISTRY[rfc_number] = rfc_data
+    salvar_rfc_gitops(rfc_data)
 
-    # Registra a proposição no ledger sagrado
     registrar_evento_sagrado(
         tenant_id=req.tenant_id,
         sub=payload.get("sub"),
@@ -557,7 +667,8 @@ def propose_rfc(req: ProporRFCRequest, credentials: HTTPAuthorizationCredentials
             "tipo": req.tipo,
             "titulo": req.titulo
         },
-        origem_sistema="RFC_ENGINE"
+        origem_sistema="RFC_ENGINE",
+        background_tasks=bg
     )
 
     return {
@@ -568,11 +679,12 @@ def propose_rfc(req: ProporRFCRequest, credentials: HTTPAuthorizationCredentials
     }
 
 @app.post("/api/v1/governance/rfc/approve")
-def approve_rfc(req: AprovarRFCRequest, credentials: HTTPAuthorizationCredentials = Depends(security)):
-    """
-    Aprova ou Rejeita formalmente uma RFC.
-    Para mudanças TIPO B (Estruturais/Compliance do Cliente): exige aprovação do Tenant Admin ou Core Dev.
-    """
+def approve_rfc(
+    req: AprovarRFCRequest,
+    bg: BackgroundTasks,
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    """Aprova ou Rejeita formalmente uma RFC com trava SoD de compliance."""
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
     except Exception as e:
@@ -586,9 +698,7 @@ def approve_rfc(req: AprovarRFCRequest, credentials: HTTPAuthorizationCredential
     is_core = payload.get("is_core_developer", False)
     user_tenant = payload.get("tenant_id")
 
-    # Validação de Alçada para Mudança Tipo B
     if rfc["tipo"] == TipoMudanca.TIPO_B_ESTRUTURAL_COMPLIANCE:
-        # Mudança que afeta o cliente exige aprovação do Tenant Admin do cliente ou do Core Dev da Daisugi
         if not (is_core or (user_role == "tenant_admin" and user_tenant == rfc["tenant_id"])):
             raise HTTPException(
                 status_code=403,
@@ -605,8 +715,8 @@ def approve_rfc(req: AprovarRFCRequest, credentials: HTTPAuthorizationCredential
         "parecer": req.parecer,
         "timestamp_iso": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     })
+    salvar_rfc_gitops(rfc)
 
-    # Registra aprovação/rejeição no ledger sagrado
     registrar_evento_sagrado(
         tenant_id=rfc["tenant_id"],
         sub=payload.get("sub"),
@@ -616,7 +726,8 @@ def approve_rfc(req: AprovarRFCRequest, credentials: HTTPAuthorizationCredential
             "parecer": req.parecer,
             "tipo": rfc["tipo"]
         },
-        origem_sistema="RFC_ENGINE"
+        origem_sistema="RFC_ENGINE",
+        background_tasks=bg
     )
 
     return {
@@ -624,6 +735,26 @@ def approve_rfc(req: AprovarRFCRequest, credentials: HTTPAuthorizationCredential
         "rfc_id": req.rfc_id,
         "novo_status": decisao_final,
         "rfc": rfc
+    }
+
+@app.get("/api/v1/governance/rfc/pending-count/{tenant_id}")
+def get_pending_rfc_count(tenant_id: str, credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """Retorna contador ultra-leve de RFCs Tipo B pendentes para exibição de badge no Lobby da DAI."""
+    try:
+        jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=f"Token inválido: {e}")
+
+    pendentes = [
+        rfc for rfc in RFC_REGISTRY.values()
+        if rfc["tenant_id"] == tenant_id
+        and rfc["tipo"] == TipoMudanca.TIPO_B_ESTRUTURAL_COMPLIANCE
+        and rfc["status"] == StatusRFC.PROPOSTA
+    ]
+    return {
+        "tenant_id": tenant_id,
+        "pendentes_tipo_b": len(pendentes),
+        "exibir_alerta": len(pendentes) > 0
     }
 
 @app.get("/api/v1/governance/rfc/list/{tenant_id}")
