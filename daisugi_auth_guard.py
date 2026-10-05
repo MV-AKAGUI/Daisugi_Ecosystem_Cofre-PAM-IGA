@@ -43,11 +43,22 @@ class DaisugiAuthGuard:
             )
         return payload
 
+    def require_tenant_admin(self, credentials: HTTPAuthorizationCredentials = Depends(security)) -> Dict[str, Any]:
+        """Valida se o usuário tem alçada de Administrador IGA do Tenant ou Core Developer."""
+        payload = self.decode_token(credentials.credentials)
+        role = payload.get("role", "")
+        if role not in ["tenant_admin", "core_developer"]:
+            raise HTTPException(
+                status_code=403,
+                detail="Acesso Negado: Exige privilégio de Tenant Admin ou Desenvolvedor Soberano."
+            )
+        return payload
+
     def require_checker(self, credentials: HTTPAuthorizationCredentials = Depends(security)) -> Dict[str, Any]:
         """Valida se o usuário tem alçada de Checker/Validador de Quarentena."""
         payload = self.decode_token(credentials.credentials)
         role = payload.get("role", "")
-        if role not in ["checker", "admin", "core_developer"]:
+        if role not in ["checker", "admin", "tenant_admin", "core_developer"]:
             raise HTTPException(
                 status_code=403,
                 detail="Violação SoD: Esta Cadeira não possui alçada de Validador/Checker de Quarentena."
@@ -63,6 +74,10 @@ class DaisugiAuthGuard:
                 detail="Violação SoD Tóxica: O criador da demanda (Maker) não pode aprovar a sua própria quarentena (Checker)."
             )
         return True
+
+    def is_sandbox_session(self, payload: Dict[str, Any]) -> bool:
+        """Indica se a sessão é de teste homologado da Daisugi (qa.sandbox)."""
+        return payload.get("is_sandbox", False) or payload.get("role") == "sandbox_tester"
 
 # Instância Singleton do Guard
 auth_guard = DaisugiAuthGuard()

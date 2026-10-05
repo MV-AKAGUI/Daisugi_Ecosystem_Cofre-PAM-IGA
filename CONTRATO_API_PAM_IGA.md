@@ -131,3 +131,53 @@ Endpoint de ativação de privilégio máximo para contenção de desastres.
 
 * **Requisito Inegociável:** Requer autenticação de dois fatores e identidade estrita de Core Developer (`montanhavermelha@akagui.com` ou `ronaldoakagui@gmail.com`).
 * **Ação:** Emite credenciais temporárias de resgate com expiração curta (30 minutos) e dispara alerta criptografado para o comitê de segurança.
+
+---
+
+### 3.5. `POST /api/v1/audit/log-event` (Registro na Trilha Sagrada)
+Permite que a DAI, o Kan-sa e outros módulos gravem interações clínicas, perguntas de usuários, respostas geradas pela IA e deliberações com encadeamento SHA-256.
+
+* **Headers:** `Authorization: Bearer <token_jwt>`
+* **Request Body:**
+  ```json
+  {
+    "tenant_id": "sugoi_sa",
+    "acao": "CONSULTA_CLINICA_DAI",
+    "detalhes": {
+      "sala": "Dr. Taylor Code",
+      "pergunta_resumo": "Verificação de conformidade de contrato de terceirizado",
+      "resposta_gerada": "Parecer clínico emitido com similaridade RAG 0.88",
+      "tempo_resposta_ms": 420
+    },
+    "status": "SUCCESS",
+    "origem_sistema": "DAI_RECEPTION"
+  }
+  ```
+* **Response (HTTP 200 OK):**
+  ```json
+  {
+    "status": "gravado",
+    "entry_id": "f5127025-a13a-44c1-...",
+    "hash_integridade": "7c5e2671b..."
+  }
+  ```
+
+---
+
+### 3.6. `GET /api/v1/audit/tenant-report/{tenant_id}` (Extrato de Transparência do Cliente)
+Relatório para o cliente extrair todas as ações ocorridas dentro do seu tenant com integridade comprovada.
+
+* **Headers:** `Authorization: Bearer <token_jwt>`
+* **Segurança:** Apenas usuários do próprio `tenant_id` ou Core Developers têm acesso aos seus dados.
+
+---
+
+### 3.7. `GET /api/v1/audit/verify-integrity` (Prova Matemática de Não-Adulteração)
+Auditoria algorítmica independente que recalcula todos os hashes da cadeia para garantir que nenhum evento foi adulterado ou deletado.
+
+---
+
+### 3.8. `POST /api/v1/governance/rfc/propose` e `POST /api/v1/governance/rfc/approve` (Protocolo de Gestão de Mudanças)
+* **Mudanças Tipo A (Operacionais / UI / Prompts internos):** Registradas e aprovadas com agilidade técnica.
+* **Mudanças Tipo B (Estruturais / Compliance do Cliente):** Exigem protocolo formal (`RFC-AAAAMMDD-NNN`) e validação obrigatória do Tenant Admin do cliente (`suporte.ti@sugoisa.com.br`).
+

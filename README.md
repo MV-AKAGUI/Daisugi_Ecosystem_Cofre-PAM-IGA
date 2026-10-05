@@ -92,19 +92,24 @@ O `Daisugi_Ecosystem_Cofre-PAM-IGA` foi concebido para atender múltiplos client
 
 ```
 Daisugi_Ecosystem_Cofre-PAM-IGA/
-├── README.md                           # Visão geral e princípios do ecossistema
-├── CONTRATO_API_PAM_IGA.md             # Especificação dos endpoints, contratos e JWT
-├── MATRIZ_GOVERNANCA_MULTI_TENANT.md   # Mapeamento de Cadeiras, IGA e regras SoD
-├── daisugi_vault_core.py               # Servidor FastAPI do Cofre PAM-IGA
-├── daisugi_auth_guard.py               # SDK / Middleware cliente para DAI e Kan-sa
-├── requirements.txt                    # Dependências mínimas de alta performance
-└── .gitignore                          # Arquivos ignorados pelo Git
+├── README.md                              # Visão geral e princípios do ecossistema
+├── PROTOCOLO_MUDANCAS_E_AUDITORIA_SAGRADA.md # Diretório Sagrado de Auditoria & Protocolo de RFC
+├── CONTRATO_API_PAM_IGA.md                # Especificação dos endpoints, contratos e JWT
+├── MATRIZ_GOVERNANCA_MULTI_TENANT.md      # Mapeamento de Cadeiras, IGA e regras SoD
+├── daisugi_vault_core.py                  # Servidor FastAPI do Cofre PAM-IGA & Sacred Ledger
+├── daisugi_auth_guard.py                  # SDK / Middleware cliente para DAI e Kan-sa
+├── requirements.txt                       # Dependências mínimas de alta performance
+└── .gitignore                             # Arquivos ignorados pelo Git
 ```
 
 ---
 
-## 6. Governança e Contato
+## 6. Governança, Compliance e Transparência Radical
 
+* **Diretório Sagrado de Auditoria Imutável:** Todas as ações, acessos e respostas de IA contam com encadeamento de integridade SHA-256 e verificação matemática de não-adulteração.
+* **Usuário Oficial de Teste Homologado:** A cadeira `qa.sandbox@daisugi.com.br` permite execução de testes e homologação sem poluição dos relatórios do cliente.
+* **Protocolo de Gestão de Mudanças (RFC):** Separação estrita entre mudanças operacionais (Tipo A) e mudanças estruturais de compliance do cliente (Tipo B, exigindo aprovação formal do Tenant Admin).
 * **Mantenedor Principal:** Daisugi Tecnologias
 * **Autoridade Primária:** `montanhavermelha@akagui.com`
 * **Engenharia de Plataforma:** `ronaldoakagui@gmail.com`
+
