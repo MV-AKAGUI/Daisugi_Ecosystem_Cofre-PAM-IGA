@@ -65,6 +65,31 @@ class DaisugiAuthGuard:
             )
         return payload
 
+    def has_chair(self, payload: Dict[str, Any], chair_code_or_name: str) -> bool:
+        """Verifica se o usuário possui determinada cadeira nominal ou código atribuído."""
+        cadeiras = [c.lower() for c in payload.get("cadeiras", [])]
+        cadeira_principal = payload.get("cadeira_principal", "").lower()
+        alvo = chair_code_or_name.lower()
+        return alvo in cadeiras or alvo == cadeira_principal or payload.get("is_core_developer", False)
+
+    def require_any_chair(self, valid_chairs: List[str]):
+        """Dependency injetável que exige que o usuário ocupe ao menos uma das cadeiras listadas."""
+        def dependency(credentials: HTTPAuthorizationCredentials = Depends(security)) -> Dict[str, Any]:
+            payload = self.decode_token(credentials.credentials)
+            if payload.get("is_core_developer", False):
+                return payload
+            user_chairs = [c.lower() for c in payload.get("cadeiras", [])]
+            user_chairs.append(payload.get("cadeira_principal", "").lower())
+            
+            for ch in valid_chairs:
+                if ch.lower() in user_chairs:
+                    return payload
+            raise HTTPException(
+                status_code=403,
+                detail=f"Acesso Negado: Esta operação exige uma das seguintes Cadeiras: {', '.join(valid_chairs)}"
+            )
+        return dependency
+
     def validate_maker_checker(self, payload: Dict[str, Any], maker_identity: str):
         """Impede terminantemente a auto-aprovação de demandas."""
         current_user = payload.get("sub", "").lower()
@@ -81,3 +106,4 @@ class DaisugiAuthGuard:
 
 # Instância Singleton do Guard
 auth_guard = DaisugiAuthGuard()
+

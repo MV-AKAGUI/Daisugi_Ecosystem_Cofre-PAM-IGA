@@ -1,0 +1,1103 @@
+{
+  "total_cadeiras": 69,
+  "total_identidades": 42,
+  "total_sod": 20,
+  "cadeiras": [
+    {
+      "codigo": "CAD-019",
+      "nome": "Analista de Controles Internos",
+      "setor": "1.01 PRESIDÊNCIA",
+      "perfil": "Testador de Controles (acesso de leitura/auditoria)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-035",
+      "nome": "Analista de Riscos Corporativos",
+      "setor": "1.01 PRESIDÊNCIA",
+      "perfil": "Analista de Riscos",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-052",
+      "nome": "Encarregado de Dados (DPO)",
+      "setor": "1.01 PRESIDÊNCIA",
+      "perfil": "DPO (acesso de governança, não operacional)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-061",
+      "nome": "Gestor do Canal de Ética",
+      "setor": "1.01 PRESIDÊNCIA",
+      "perfil": "Gestor do Canal (acesso restritíssimo)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-064",
+      "nome": "Investigador de Compliance",
+      "setor": "1.01 PRESIDÊNCIA",
+      "perfil": "Investigador (acesso temporário e auditado)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-012",
+      "nome": "Analista de Administração de Pessoal (DP)",
+      "setor": "1.02 GENTE, CULTURA E GESTÃO",
+      "perfil": "Analista de DP",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-024",
+      "nome": "Analista de G&G — Desligamento (Leaver)",
+      "setor": "1.02 GENTE, CULTURA E GESTÃO",
+      "perfil": "Analista de G&G",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-025",
+      "nome": "Analista de G&G — Movimentações (Mover)",
+      "setor": "1.02 GENTE, CULTURA E GESTÃO",
+      "perfil": "Analista de G&G",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-033",
+      "nome": "Analista de Recrutamento e Seleção",
+      "setor": "1.02 GENTE, CULTURA E GESTÃO",
+      "perfil": "Recrutador",
+      "criticidade": "Baixa",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-040",
+      "nome": "Analista de Treinamento e Desenvolvimento",
+      "setor": "1.02 GENTE, CULTURA E GESTÃO",
+      "perfil": "Administrador de LMS",
+      "criticidade": "Baixa",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-001",
+      "nome": "Administrador de Acessos (IGA)",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Administrador de Identidades (IGA Admin)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-002",
+      "nome": "Administrador de IGA",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Administrador de Governança de Identidade",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-003",
+      "nome": "Administrador de PAM (Cofre)",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Administrador do Cofre (super-admin)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-027",
+      "nome": "Analista de Infraestrutura de TI",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Administrador de Infraestrutura",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-036",
+      "nome": "Analista de Service Desk",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Atendente Nível 1",
+      "criticidade": "Baixa",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-037",
+      "nome": "Analista de Sistemas/ERP",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Administrador Funcional de Sistemas",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-059",
+      "nome": "Gestor de Mudanças de TI",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Aprovador de Mudanças (Checker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-060",
+      "nome": "Gestor de Segurança da Informação (CISO)",
+      "setor": "1.03 OPERAÇÕES",
+      "perfil": "Gestor de Segurança (acesso de auditoria a todos os logs)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-022",
+      "nome": "Analista de Fluxo de Caixa",
+      "setor": "1.04 PLANEJAMENTO FINANCEIRO (FP&A)",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-023",
+      "nome": "Analista de FP&A",
+      "setor": "1.04 PLANEJAMENTO FINANCEIRO (FP&A)",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-029",
+      "nome": "Analista de Orçamento Corporativo",
+      "setor": "1.04 PLANEJAMENTO FINANCEIRO (FP&A)",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-055",
+      "nome": "Gerente de FP&A",
+      "setor": "1.04 PLANEJAMENTO FINANCEIRO (FP&A)",
+      "perfil": "Gerente (Aprovador)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-011",
+      "nome": "Analista Contábil",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Analista Contábil",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-028",
+      "nome": "Analista de Obrigações Acessórias",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Analista de Obrigações Acessórias",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-042",
+      "nome": "Analista Fiscal",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Analista Fiscal",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-047",
+      "nome": "Coordenador de Fechamento Contábil",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Aprovador de Fechamento (Checker)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-057",
+      "nome": "Gestor de Certificados Digitais",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Custodiante de Certificado Digital",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-062",
+      "nome": "Governança de Parametrização do ERP",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Aprovador de Parametrização (Checker)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-063",
+      "nome": "Interface de Auditoria Independente (Controller)",
+      "setor": "1.05 CONTROLADORIA",
+      "perfil": "Interlocutor de Auditoria (acesso de leitura supervisionado)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-015",
+      "nome": "Analista de Contas a Pagar",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Lançador de Contas a Pagar (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-016",
+      "nome": "Analista de Contas a Receber",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Analista de Recebimentos",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-018",
+      "nome": "Analista de Contratos Administrativos",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Gestor de Contratos Administrativos",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-021",
+      "nome": "Analista de Facilities",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Solicitante/Gestor de Facilities",
+      "criticidade": "Baixa",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-030",
+      "nome": "Analista de Patrimônio",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Analista de Ativo Fixo",
+      "criticidade": "Baixa",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-039",
+      "nome": "Analista de Tesouraria",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Operador de Tesouraria (Maker)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-043",
+      "nome": "Aprovador Financeiro (Contas a Pagar)",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Aprovador de Pagamentos (Checker)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-051",
+      "nome": "Coordenador Predial",
+      "setor": "1.06 ADMINISTRATIVO | FINANCEIRO",
+      "perfil": "Gestor Predial",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-004",
+      "nome": "Advogado Consultivo",
+      "setor": "1.07 JURÍDICO EMPRESARIAL",
+      "perfil": "Advogado Consultivo",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-005",
+      "nome": "Advogado Contencioso",
+      "setor": "1.07 JURÍDICO EMPRESARIAL",
+      "perfil": "Advogado Contencioso",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-006",
+      "nome": "Advogado de Contratos",
+      "setor": "1.07 JURÍDICO EMPRESARIAL",
+      "perfil": "Advogado de Contratos",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-009",
+      "nome": "Advogado Societário",
+      "setor": "1.07 JURÍDICO EMPRESARIAL",
+      "perfil": "Advogado Societário",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-010",
+      "nome": "Analista Ambiental",
+      "setor": "1.08 QSMS",
+      "perfil": "Analista Ambiental",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-032",
+      "nome": "Analista de Qualidade",
+      "setor": "1.08 QSMS",
+      "perfil": "Auditor de Qualidade",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-068",
+      "nome": "Responsável por Saúde Ocupacional",
+      "setor": "1.08 QSMS",
+      "perfil": "Responsável Técnico de Saúde Ocupacional",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-069",
+      "nome": "Técnico de Segurança do Trabalho",
+      "setor": "1.08 QSMS",
+      "perfil": "Técnico de Segurança",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-038",
+      "nome": "Analista de Terrenos (Landbank)",
+      "setor": "1.09 LANDBANK E NOVOS NEGÓCIOS",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-041",
+      "nome": "Analista de Viabilidade (EVTL)",
+      "setor": "1.09 LANDBANK E NOVOS NEGÓCIOS",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-049",
+      "nome": "Coordenador de Novos Negócios",
+      "setor": "1.09 LANDBANK E NOVOS NEGÓCIOS",
+      "perfil": "Coordenador (Aprovador)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-067",
+      "nome": "Relacionamento Comercial Landbank",
+      "setor": "1.09 LANDBANK E NOVOS NEGÓCIOS",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-007",
+      "nome": "Advogado de Incorporação Imobiliária",
+      "setor": "1.10 JURÍDICO IMOBILIÁRIO",
+      "perfil": "Advogado (Maker/Checker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-008",
+      "nome": "Advogado Imobiliário (Terrenos)",
+      "setor": "1.10 JURÍDICO IMOBILIÁRIO",
+      "perfil": "Advogado (Aprovador)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-050",
+      "nome": "Coordenador Jurídico Imobiliário",
+      "setor": "1.10 JURÍDICO IMOBILIÁRIO",
+      "perfil": "Coordenador (Aprovador)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-026",
+      "nome": "Analista de Incorporação",
+      "setor": "1.11 INCORPORAÇÃO",
+      "perfil": "Analista (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-048",
+      "nome": "Coordenador de Licenciamento e Legalizações",
+      "setor": "1.11 INCORPORAÇÃO",
+      "perfil": "Coordenador (Aprovador)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-056",
+      "nome": "Gerente de Produto e Incorporação",
+      "setor": "1.11 INCORPORAÇÃO",
+      "perfil": "Gerente (Aprovador)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-044",
+      "nome": "Assistente Técnico (Pós-Obra)",
+      "setor": "1.12 ENGENHARIA",
+      "perfil": "Assistente (Maker)",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-046",
+      "nome": "Coordenador de Engenharia",
+      "setor": "1.12 ENGENHARIA",
+      "perfil": "Coordenador (Aprovador)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-053",
+      "nome": "Engenheiro da Obra (Produção)",
+      "setor": "1.12 ENGENHARIA",
+      "perfil": "Engenheiro (Maker)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-054",
+      "nome": "Engenheiro de Projetos Técnicos",
+      "setor": "1.12 ENGENHARIA",
+      "perfil": "Engenheiro (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-065",
+      "nome": "Orçamentista de Engenharia",
+      "setor": "1.12 ENGENHARIA",
+      "perfil": "Orçamentista (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-066",
+      "nome": "Planejador de Obra",
+      "setor": "1.12 ENGENHARIA",
+      "perfil": "Planejador (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-013",
+      "nome": "Analista de Cadastro de Fornecedores",
+      "setor": "1.13 SUPRIMENTOS",
+      "perfil": "Analista de Cadastro (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-017",
+      "nome": "Analista de Contratações",
+      "setor": "1.13 SUPRIMENTOS",
+      "perfil": "Analista de Contratações",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-045",
+      "nome": "Comprador",
+      "setor": "1.13 SUPRIMENTOS",
+      "perfil": "Comprador (Maker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-058",
+      "nome": "Gestor de Contratos de Suprimentos",
+      "setor": "1.13 SUPRIMENTOS",
+      "perfil": "Aprovador de Medição/Aditivo (Checker)",
+      "criticidade": "Alta",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-014",
+      "nome": "Analista de Cobrança",
+      "setor": "1.14 CRM",
+      "perfil": "Analista de Cobrança",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-020",
+      "nome": "Analista de CRM/Relacionamento",
+      "setor": "1.14 CRM",
+      "perfil": "Analista de CRM",
+      "criticidade": "Média",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-031",
+      "nome": "Analista de Pós-Venda",
+      "setor": "1.14 CRM",
+      "perfil": "Analista de Pós-Venda",
+      "criticidade": "Baixa",
+      "pam": "Sim"
+    },
+    {
+      "codigo": "CAD-034",
+      "nome": "Analista de Repasse (EAP 1.05.04.01.01)",
+      "setor": "1.14 CRM",
+      "perfil": "Analista de Repasse (Maker)",
+      "criticidade": "Crítica",
+      "pam": "Sim"
+    }
+  ],
+  "identidades": [
+    {
+      "nome": "Ronaldo Akagui",
+      "codigo_hierarquico": "1",
+      "area": "Presidência",
+      "regime": "Diretor Presidente",
+      "alcada": "Diretor",
+      "perfil": "Presidente",
+      "email_cadeira": "diretor.presidente@sugoisa.com.br",
+      "email_nominal": "ronaldo.akagui@sugoisa.com.br"
+    },
+    {
+      "nome": "Renato Barroso",
+      "codigo_hierarquico": "3",
+      "area": "Operações",
+      "regime": "Diretor",
+      "alcada": "Diretor",
+      "perfil": "Operações",
+      "email_cadeira": "diretor.operacoes@sugoisa.com.br",
+      "email_nominal": "renato.barroso@sugoisa.com.br"
+    },
+    {
+      "nome": "Luiz Perez",
+      "codigo_hierarquico": "12",
+      "area": "Engenharia",
+      "regime": "Diretor",
+      "alcada": "Diretor",
+      "perfil": "Engenharia",
+      "email_cadeira": "diretor.engenharia@sugoisa.com.br",
+      "email_nominal": "luiz.perez@sugoisa.com.br"
+    },
+    {
+      "nome": "Cintia Godinho",
+      "codigo_hierarquico": "2",
+      "area": "Gente, cultura e gestão",
+      "regime": "PMO",
+      "alcada": "PMO",
+      "perfil": "Gente Gestão",
+      "email_cadeira": "pmo.gentegestao@sugoisa.com.br",
+      "email_nominal": "cintia.godinho@sugoisa.com.br"
+    },
+    {
+      "nome": "Joyce Ferreira",
+      "codigo_hierarquico": "2.3.1",
+      "area": "Departamento pessoal",
+      "regime": "Analista de Departamento Pessoal Pleno",
+      "alcada": "Analista",
+      "perfil": "Gestão",
+      "email_cadeira": "analista.gestao@sugoisa.com.br",
+      "email_nominal": "joyce.ferreira@sugoisa.com.br"
+    },
+    {
+      "nome": "Fabiana Tonini",
+      "codigo_hierarquico": "3",
+      "area": "Operações",
+      "regime": "PMO",
+      "alcada": "PMO",
+      "perfil": "Operações",
+      "email_cadeira": "pmo.operacoes@sugoisa.com.br",
+      "email_nominal": "fabiana.tonini@sugoisa.com.br"
+    },
+    {
+      "nome": "Gustavo Polasse",
+      "codigo_hierarquico": "3.1",
+      "area": "Monitor de resultados",
+      "regime": "Monitor de Resultado",
+      "alcada": "Coordenador",
+      "perfil": "Operações",
+      "email_cadeira": "coordenador.operacoes@sugoisa.com.br",
+      "email_nominal": "gustavo.polasse@sugoisa.com.br"
+    },
+    {
+      "nome": "Weslley Coradini",
+      "codigo_hierarquico": "3.2",
+      "area": "Tecnologia da informação",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "TI",
+      "email_cadeira": "especialista.ti@sugoisa.com.br",
+      "email_nominal": "weslley.coradini@sugoisa.com.br"
+    },
+    {
+      "nome": "Gabrielle Nascimento",
+      "codigo_hierarquico": "3.2.1",
+      "area": "Software e hardware",
+      "regime": "Estagiário de TI",
+      "alcada": "Estagiária",
+      "perfil": "TI",
+      "email_cadeira": "estagiaria.ti@sugoisa.com.br",
+      "email_nominal": "gabrielle.nascimento@sugoisa.com.br"
+    },
+    {
+      "nome": "Ester Souza",
+      "codigo_hierarquico": "3.3",
+      "area": "Relacionamento CEF",
+      "regime": "",
+      "alcada": "Analista",
+      "perfil": "CEF",
+      "email_cadeira": "analista.cef@sugoisa.com.br",
+      "email_nominal": "ester.souza@sugoisa.com.br"
+    },
+    {
+      "nome": "Fernando Brasil",
+      "codigo_hierarquico": "5",
+      "area": "Controladoria",
+      "regime": "Terceirizado",
+      "alcada": "PMO",
+      "perfil": "Controladoria",
+      "email_cadeira": "pmo.controladoria@sugoisa.com.br",
+      "email_nominal": "fernando.brasil@sugoisa.com.br"
+    },
+    {
+      "nome": "Flávia Akagui",
+      "codigo_hierarquico": "6",
+      "area": "Administrativo financeiro",
+      "regime": "PMO",
+      "alcada": "PMO",
+      "perfil": "Financeiro",
+      "email_cadeira": "pmo.financeiro@sugoisa.com.br",
+      "email_nominal": "flavia.akagui@sugoisa.com.br"
+    },
+    {
+      "nome": "Denise Segatelli",
+      "codigo_hierarquico": "6.1.1",
+      "area": "Facilities",
+      "regime": "Auxiliar Administrativo Financeiro",
+      "alcada": "Assistente",
+      "perfil": "Facilities",
+      "email_cadeira": "assistente.facilities@sugoisa.com.br",
+      "email_nominal": "denise.segatelli@sugoisa.com.br"
+    },
+    {
+      "nome": "Nathália Rodrigues",
+      "codigo_hierarquico": "6.2.1",
+      "area": "Contas à receber",
+      "regime": "Especialista Técnico",
+      "alcada": "Analista",
+      "perfil": "Contas Receber",
+      "email_cadeira": "analista.contasreceber@sugoisa.com.br",
+      "email_nominal": "nathalia.rodrigues@sugoisa.com.br"
+    },
+    {
+      "nome": "Grazielli Nascimento",
+      "codigo_hierarquico": "6.2.2",
+      "area": "Contas à pagar",
+      "regime": "Auxiliar Administrativo Financeiro",
+      "alcada": "Auxiliar",
+      "perfil": "Contas Pagar",
+      "email_cadeira": "auxiliar.contaspagar@sugoisa.com.br",
+      "email_nominal": "grazielli.nascimento@sugoisa.com.br"
+    },
+    {
+      "nome": "Paola Alencar",
+      "codigo_hierarquico": "7",
+      "area": "Jurídico empresarial",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "Jurídico",
+      "email_cadeira": "especialista.juridico@sugoisa.com.br",
+      "email_nominal": "paola.alencar@sugoisa.com.br"
+    },
+    {
+      "nome": "Kayllane Lima",
+      "codigo_hierarquico": "7.1.1",
+      "area": "Consultivo",
+      "regime": "Estagiário Jurídico",
+      "alcada": "Estagiária",
+      "perfil": "Jurídico",
+      "email_cadeira": "estagiaria.juridico@sugoisa.com.br",
+      "email_nominal": "kayllane.lima@sugoisa.com.br"
+    },
+    {
+      "nome": "Aryela Sousa",
+      "codigo_hierarquico": "8.2",
+      "area": "Segurança do trabalho",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "Segurança",
+      "email_cadeira": "especialista.seguranca@sugoisa.com.br",
+      "email_nominal": "aryela.sousa@sugoisa.com.br"
+    },
+    {
+      "nome": "Vivian Berti",
+      "codigo_hierarquico": "11",
+      "area": "Incorporação",
+      "regime": "PMO",
+      "alcada": "PMO",
+      "perfil": "Incorporação",
+      "email_cadeira": "pmo.incorporacao@sugoisa.com.br",
+      "email_nominal": "vivian.berti@sugoisa.com.br"
+    },
+    {
+      "nome": "Pedro Junior",
+      "codigo_hierarquico": "12",
+      "area": "Engenharia",
+      "regime": "PMO",
+      "alcada": "PMO",
+      "perfil": "Engenharia",
+      "email_cadeira": "pmo.engenharia@sugoisa.com.br",
+      "email_nominal": "pedro.junior@sugoisa.com.br"
+    },
+    {
+      "nome": "William Gois",
+      "codigo_hierarquico": "12.2",
+      "area": "Orçamentos",
+      "regime": "Analista de Orçamentos Jr",
+      "alcada": "Assistente",
+      "perfil": "Orçamentos Eng",
+      "email_cadeira": "assistente.orcamentoseng@sugoisa.com.br",
+      "email_nominal": "william.gois@sugoisa.com.br"
+    },
+    {
+      "nome": "Lukas Kostakis",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "Produção Eng",
+      "email_cadeira": "especialista.producaoeng@sugoisa.com.br",
+      "email_nominal": "lukas.kostakis@sugoisa.com.br"
+    },
+    {
+      "nome": "Diego Santos",
+      "codigo_hierarquico": "12.5",
+      "area": "Assistência técnica",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "Assis Técnica",
+      "email_cadeira": "especialista.assistecnica@sugoisa.com.br",
+      "email_nominal": "diego.santos@sugoisa.com.br"
+    },
+    {
+      "nome": "Simone Furquim",
+      "codigo_hierarquico": "13",
+      "area": "Suprimentos",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "Suprimentos",
+      "email_cadeira": "especialista.suprimentos@sugoisa.com.br",
+      "email_nominal": "simone.furquim@sugoisa.com.br"
+    },
+    {
+      "nome": "Jéssica Miguel",
+      "codigo_hierarquico": "14.1.1",
+      "area": "Relacionamento com o cliente",
+      "regime": "Analista de Relacionamento com Cliente",
+      "alcada": "Assistente",
+      "perfil": "Relacionamento 1",
+      "email_cadeira": "assistente.relacionamento1@sugoisa.com.br",
+      "email_nominal": "jessica.miguel@sugoisa.com.br"
+    },
+    {
+      "nome": "Lays Pantaleão",
+      "codigo_hierarquico": "14.1.1",
+      "area": "Relacionamento com o cliente",
+      "regime": "Analista de Relacionamento com Cliente",
+      "alcada": "Assistente",
+      "perfil": "Relacionamento 2",
+      "email_cadeira": "assistente.relacionamento2@sugoisa.com.br",
+      "email_nominal": "lays.pantaleao@sugoisa.com.br"
+    },
+    {
+      "nome": "Igor Miguel",
+      "codigo_hierarquico": "14.2",
+      "area": "Cobrança",
+      "regime": "Especialista Técnico",
+      "alcada": "Coordenador",
+      "perfil": "Cobrança",
+      "email_cadeira": "coordenador.cobranca@sugoisa.com.br",
+      "email_nominal": "igor.miguel@sugoisa.com.br"
+    },
+    {
+      "nome": "Wesley Mendes",
+      "codigo_hierarquico": "14.2.1",
+      "area": "Régua de cobrança",
+      "regime": "Autônomo",
+      "alcada": "Analista",
+      "perfil": "Cobrança 1",
+      "email_cadeira": "analista.cobranca1@sugoisa.com.br",
+      "email_nominal": "wesley.mendes@sugoisa.com.br"
+    },
+    {
+      "nome": "Eduardo Campos",
+      "codigo_hierarquico": "14.2.1",
+      "area": "Régua de cobrança",
+      "regime": "Autônomo",
+      "alcada": "Analista",
+      "perfil": "Cobrança 2",
+      "email_cadeira": "analista.cobranca2@sugoisa.com.br",
+      "email_nominal": "eduardo.campos@sugoisa.com.br"
+    },
+    {
+      "nome": "Pedro Santos",
+      "codigo_hierarquico": "14.2.1",
+      "area": "Régua de cobrança",
+      "regime": "Autônomo",
+      "alcada": "Analista",
+      "perfil": "Cobrança 3",
+      "email_cadeira": "analista.cobranca3@sugoisa.com.br",
+      "email_nominal": "pedro.santos@sugoisa.com.br"
+    },
+    {
+      "nome": "Flávio Hanani",
+      "codigo_hierarquico": "",
+      "area": "",
+      "regime": "Especialista Técnico",
+      "alcada": "Especialista",
+      "perfil": "Sindicância",
+      "email_cadeira": "especialista.sindicancia@sugoisa.com.br",
+      "email_nominal": "flavio.hanani@sugoisa.com.br"
+    },
+    {
+      "nome": "Igor Santos",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Engenheiro",
+      "perfil": "São Mateus",
+      "email_cadeira": "engenheiro.saomateus@sugoisa.com.br",
+      "email_nominal": "igor.santos@sugoisa.com.br"
+    },
+    {
+      "nome": "Wilson Freitas",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Engenheiro",
+      "perfil": "Guarapiranga",
+      "email_cadeira": "engenheiro.guarapiranga@sugoisa.com.br",
+      "email_nominal": "wilson.freitas@sugoisa.com.br"
+    },
+    {
+      "nome": "Leonardo Figueiredo",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Engenheiro",
+      "perfil": "Parque do Carmo",
+      "email_cadeira": "engenheiro.parquedocarmo@sugoisa.com.br",
+      "email_nominal": "leonardo.figueiredo@sugoisa.com.br"
+    },
+    {
+      "nome": "André Carvalho",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Engenheiro",
+      "perfil": "Mirai Cidade Líder",
+      "email_cadeira": "engenheiro.miraicidadelider@sugoisa.com.br",
+      "email_nominal": "andre.carvalho@sugoisa.com.br"
+    },
+    {
+      "nome": "Larissa Nunes",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Engenheiro",
+      "perfil": "Varandas",
+      "email_cadeira": "engenheiro.varandas@sugoisa.com.br",
+      "email_nominal": "larissa.nunes@sugoisa.com.br"
+    },
+    {
+      "nome": "Beatriz Xavier",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Analista Técnica de Engenharia Jr",
+      "alcada": "Analista",
+      "perfil": "Varandas",
+      "email_cadeira": "analista.varandas@sugoisa.com.br",
+      "email_nominal": "beatriz.xavier@sugoisa.com.br"
+    },
+    {
+      "nome": "Reginaldo Santos",
+      "codigo_hierarquico": "12.4",
+      "area": "Produção",
+      "regime": "Especialista Técnico",
+      "alcada": "Analista",
+      "perfil": "Guarapiranga",
+      "email_cadeira": "analista.guarapiranga@sugoisa.com.br",
+      "email_nominal": "reginaldo.santos@sugoisa.com.br"
+    },
+    {
+      "nome": "Maria Fátima",
+      "codigo_hierarquico": "12.4.1",
+      "area": "Execução da obra",
+      "regime": "Auxiliar Administrativo",
+      "alcada": "Analista",
+      "perfil": "Garden Amazonia",
+      "email_cadeira": "analista.gardenamazonia@sugoisa.com.br",
+      "email_nominal": "maria.fatima@sugoisa.com.br"
+    },
+    {
+      "nome": "Juliana Brossi",
+      "codigo_hierarquico": "12.4.1",
+      "area": "Execução da obra",
+      "regime": "Analista Adm de Obras Jr",
+      "alcada": "Auxiliar",
+      "perfil": "Adm de Obra 1",
+      "email_cadeira": "auxiliar.admdeobra1@sugoisa.com.br",
+      "email_nominal": "juliana.brossi@sugoisa.com.br"
+    },
+    {
+      "nome": "Pedro Ferreira",
+      "codigo_hierarquico": "12.4.1",
+      "area": "Execução da obra",
+      "regime": "Analista Adm de Obras Jr",
+      "alcada": "Auxiliar",
+      "perfil": "Adm de Obra 2",
+      "email_cadeira": "auxiliar.admdeobra2@sugoisa.com.br",
+      "email_nominal": "pedro.ferreira@sugoisa.com.br"
+    },
+    {
+      "nome": "Leonardo Barbosa",
+      "codigo_hierarquico": "12.4.1",
+      "area": "Execução da obra",
+      "regime": "Almoxarife",
+      "alcada": "Auxiliar",
+      "perfil": "Almoxarife",
+      "email_cadeira": "auxiliar.almoxarife@sugoisa.com.br",
+      "email_nominal": "leonardo.barbosa@sugoisa.com.br"
+    }
+  ],
+  "sod_rules": [
+    {
+      "cadeira_a": "Analista de Contas a Pagar",
+      "cadeira_b": "Aprovador Financeiro (Contas a Pagar)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Comprador",
+      "cadeira_b": "Governança de Parametrização do ERP",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Analista de Cadastro de Fornecedores",
+      "cadeira_b": "Comprador",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Analista de Repasse (EAP 1.05.04.01.01)",
+      "cadeira_b": "Analista de Contas a Receber",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Coordenador de Fechamento Contábil",
+      "cadeira_b": "Analista Contábil",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Gestor de Contratos de Suprimentos",
+      "cadeira_b": "Comprador",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Administrador de Acessos (IGA)",
+      "cadeira_b": "Administrador de PAM (Cofre)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Administrador de PAM (Cofre)",
+      "cadeira_b": "Gestor de Segurança da Informação (CISO)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Maker",
+      "cadeira_b": "Checker (mesma cadeira)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Engenheiro da Obra (medição)",
+      "cadeira_b": "Analista de Contas a Pagar (pagamento)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Analista de Terrenos",
+      "cadeira_b": "Advogado Imobiliário (aprovação de aquisição)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Coordenador de Novos Negócios",
+      "cadeira_b": "Analista de Viabilidade (EVTL)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Gerente de Produto e Incorporação",
+      "cadeira_b": "Consultor Comercial",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Contas a Pagar",
+      "cadeira_b": "Contas a Receber",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Suprimentos",
+      "cadeira_b": "Aprovação Financeira",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Engenharia (liberação)",
+      "cadeira_b": "Financeiro (pagamento)",
+      "motivo": "Execução e aprovação na mesma pessoa — risco de conflito de interesses e fraude (princípio Maker/Checker)",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Gestor de Contrato (aceita o entregável)",
+      "cadeira_b": "Analista de Contas a Pagar (libera pagamento)",
+      "motivo": "Quem aceita o entregável não pode autorizar o pagamento — quebra do princípio Maker/Checker",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Comprador/Suprimentos (contrata o PJ)",
+      "cadeira_b": "Gestor de Contrato (aceita os entregáveis)",
+      "motivo": "Quem contrata não pode ser o único a validar as entregas do contratado — risco de condescendência ou fraude",
+      "severidade": "Alta"
+    },
+    {
+      "cadeira_a": "Aprovador de Alçada da Contratação (assinou o contrato)",
+      "cadeira_b": "Aprovador de Pagamento (autorizou o pagamento)",
+      "motivo": "A mesma alçada que aprovou a contratação não pode aprovar pagamentos sem segunda assinatura — risco de superfaturamento",
+      "severidade": "Média"
+    },
+    {
+      "cadeira_a": "Analista de Faturamento/NF (emite a nota)",
+      "cadeira_b": "Analista de Contas a Pagar (confere e paga)",
+      "motivo": "Emissão de NF e pagamento na mesma mão permite fraudar valores e desviar recursos",
+      "severidade": "Alta"
+    }
+  ]
+}
